@@ -1860,16 +1860,16 @@ getSurvival <- function(dataObject,numberofGroups=2,geneSymbols,sampleTimeCensor
                 g1s <- names(tmpGeneExp)[tmpGeneExp < summary(tmpGeneExp)[2]]
                 g2s <- names(tmpGeneExp)[tmpGeneExp >= summary(tmpGeneExp)[2] & tmpGeneExp <= summary(tmpGeneExp)[5]]
                 g3s <- names(tmpGeneExp)[tmpGeneExp > summary(tmpGeneExp)[5]]
-                time.group <- as.numeric(sampleTimeCensor[c(g1s,g2s,g3s),2])
-                censor.group <- as.numeric(sampleTimeCensor[c(g1s,g2s,g3s),3])
-                surv.group <- rep (1:3, c(length(g1s), length(g2s), length(g3s)))
-                surv.fit <- survfit (Surv(time.group,censor.group)~surv.group)
-                surv.diff <- survdiff (Surv(time.group,censor.group)~surv.group)
-                pvalue <- 1- pchisq (surv.diff$chisq[1], df=2)
-                plot(surv.fit, xlab="Time", ylab="Survival", main=paste("RNASeq -",myG), col=c(2,3,4))
-                pValueTxt <- paste ("p-value= ", format.pval(pvalue,digits=2), sep="")
-                legTxt <- c("< 1st Q.", "Between 1st&3rd Q.", "> 3rd. Q.", pValueTxt)
-                legend("topright", legend=legTxt, col=c(2,3,4,0), lty=c(1,1),cex=0.7)
+                time.group <- as.numeric(sampleTimeCensor[c(g1s,g3s),2])
+censor.group <- as.numeric(sampleTimeCensor[c(g1s,g3s),3])
+surv.group <- rep (1:2, c(length(g1s), length(g3s)))
+surv.fit <- survfit (Surv(time.group,censor.group)~surv.group)
+surv.diff <- survdiff (Surv(time.group,censor.group)~surv.group)
+pvalue <- 1- pchisq (surv.diff$chisq[1], df=1)
+plot(surv.fit, xlab="Time", ylab="Survival", main=paste("RNASeq -",myG), col=c(2,4))
+pValueTxt <- paste ("p-value= ", format.pval(pvalue,digits=2), sep="")
+legTxt <- c("< 1st Q.", "> 3rd. Q.", pValueTxt)
+legend("topright", legend=legTxt, col=c(2,4,0), lty=c(1,1),cex=0.7)
               }
             }
             
@@ -1958,16 +1958,16 @@ getSurvival <- function(dataObject,numberofGroups=2,geneSymbols,sampleTimeCensor
               g1s <- names(tmpGeneExp)[tmpGeneExp < summary(tmpGeneExp)[2]]
               g2s <- names(tmpGeneExp)[tmpGeneExp >= summary(tmpGeneExp)[2] & tmpGeneExp <= summary(tmpGeneExp)[5]]
               g3s <- names(tmpGeneExp)[tmpGeneExp > summary(tmpGeneExp)[5]]
-              time.group <- as.numeric(sampleTimeCensor[c(g1s,g2s,g3s),2])
-              censor.group <- as.numeric(sampleTimeCensor[c(g1s,g2s,g3s),3])
-              surv.group <- rep (1:3, c(length(g1s), length(g2s), length(g3s)))
-              surv.fit <- survfit (Surv(time.group,censor.group)~surv.group)
-              surv.diff <- survdiff (Surv(time.group,censor.group)~surv.group)
-              pvalue <- 1- pchisq (surv.diff$chisq[1], df=2)
-              plot(surv.fit, xlab="Time", ylab="Survival", main=paste("RNASeq2 -",myG), col=c(2,3,4))
-              pValueTxt <- paste ("p-value= ", format.pval(pvalue,digits=2), sep="")
-              legTxt <- c("< 1st Q.", "Between 1st&3rd Q.", "> 3rd. Q.", pValueTxt)
-              legend("topright", legend=legTxt, col=c(2,3,4,0), lty=c(1,1),cex=0.7)
+time.group <- as.numeric(sampleTimeCensor[c(g1s,g3s),2])
+censor.group <- as.numeric(sampleTimeCensor[c(g1s,g3s),3])
+surv.group <- rep (1:2, c(length(g1s), length(g3s)))
+surv.fit <- survfit (Surv(time.group,censor.group)~surv.group)
+surv.diff <- survdiff (Surv(time.group,censor.group)~surv.group)
+pvalue <- 1- pchisq (surv.diff$chisq[1], df=1)
+plot(surv.fit, xlab="Time", ylab="Survival", main=paste("RNASeq -",myG), col=c(2,4))
+pValueTxt <- paste ("p-value= ", format.pval(pvalue,digits=2), sep="")
+legTxt <- c("< 1st Q.", "> 3rd. Q.", pValueTxt)
+legend("topright", legend=legTxt, col=c(2,4,0), lty=c(1,1),cex=0.7)
             }
           }
           
@@ -2039,18 +2039,19 @@ getSurvival <- function(dataObject,numberofGroups=2,geneSymbols,sampleTimeCensor
                 g2s <- names(tmpGeneExp)[tmpGeneExp >= summary(tmpGeneExp)[2] & tmpGeneExp <= summary(tmpGeneExp)[5]]
                 g3s <- names(tmpGeneExp)[tmpGeneExp > summary(tmpGeneExp)[5]]
                 time.group <- as.numeric(sampleTimeCensor[c(g1s,g2s,g3s),2])
-                censor.group <- as.numeric(sampleTimeCensor[c(g1s,g2s,g3s),3])
-                surv.group <- rep (1:3, c(length(g1s), length(g2s), length(g3s)))
-                surv.fit <- survfit (Surv(time.group,censor.group)~surv.group)
-                surv.diff <- survdiff (Surv(time.group,censor.group)~surv.group)
-                pvalue <- 1- pchisq (surv.diff$chisq[1], df=2)
+time.group <- as.numeric(sampleTimeCensor[c(g1s,g3s),2])
+censor.group <- as.numeric(sampleTimeCensor[c(g1s,g3s),3])
+surv.group <- rep (1:2, c(length(g1s), length(g3s)))
+surv.fit <- survfit (Surv(time.group,censor.group)~surv.group)
+surv.diff <- survdiff (Surv(time.group,censor.group)~surv.group)
+pvalue <- 1- pchisq (surv.diff$chisq[1], df=1)
                 myFN <- gsub(x=dataObject@mRNAArray[[jj]]@Filename,pattern="__",replacement="@")
                 myFN <- gsub(x=myFN,pattern="_",replacement="@")
                 myFN <- paste(unlist(strsplit(x=myFN,split="@"))[3],unlist(strsplit(x=myFN,split="@"))[4],unlist(strsplit(x=myFN,split="@"))[5])
-                plot(surv.fit, xlab="Time", ylab="Survival", main=paste(myFN,myG,sep="-"), col=c(2,3,4))
-                pValueTxt <- paste ("p-value= ", format.pval(pvalue,digits=2), sep="")
-                legTxt <- c("< 1st Q.", "Between 1st&3rd Q.", "> 3rd. Q.", pValueTxt)
-                legend("topright", legend=legTxt, col=c(2,3,4,0), lty=c(1,1),cex=0.7)
+plot(surv.fit, xlab="Time", ylab="Survival", main=paste(myFN,myG,sep="-"), col=c(2,4))
+pValueTxt <- paste ("p-value= ", format.pval(pvalue,digits=2), sep="")
+legTxt <- c("< 1st Q.", "> 3rd. Q.", pValueTxt)
+legend("topright", legend=legTxt, col=c(2,4,0), lty=c(1,1),cex=0.7)
               }
             }
             
